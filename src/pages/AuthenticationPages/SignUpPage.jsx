@@ -46,7 +46,6 @@ export default function SignUpPage() {
             setSignUpData((prevData) => ({
               ...prevData,
               isAdm: checked,
-              isEmployee: !checked,
             }));
           }
         } else if (name === 'isEmployee') {
@@ -54,7 +53,6 @@ export default function SignUpPage() {
             setSignUpData((prevData) => ({
               ...prevData,
               isAdm: !checked,
-              isEmployee: checked,
             }));
           }
         }
