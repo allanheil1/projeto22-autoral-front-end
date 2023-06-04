@@ -22,7 +22,7 @@ export default function SignInPage() {
 	function SignInRequest(e) {
 		e.preventDefault();
 		setIsLoading(true);
-		const promise = axios.post(process.env.REACT_APP_SIGNIN_URL, signInData);
+		const promise = axios.post(`${process.env.REACT_APP_BASE_URL}/signin`, signInData);
 		promise.then((res) => {
 			setIsLoading(false);
 			setToken(res.data.token);
@@ -67,7 +67,7 @@ export default function SignInPage() {
 				</button>
 			</Form>
 
-			<Link to={isLoading ? "" : "/sign-up"}>
+			<Link to={isLoading ? "" : "/signup"}>
 				<Message>Don't have an account? Sign-Up!</Message>
 			</Link>
 		</AuthenticationPageStyle>

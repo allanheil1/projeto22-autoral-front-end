@@ -6,12 +6,14 @@ import { UserContext } from '../../contexts/UserContext.jsx';
 import { AuthenticationPageStyle, Message, Form } from './style'
 
 export default function SignUpPage() {
-    const { setVisibleHeader } = useContext(UserContext);
+    //const { setVisibleHeader } = useContext(UserContext);
     const navigate = useNavigate();
     const [signUpData, setSignUpData] = useState({
+      isAdm: true,
       login: '',
       name: '',
-      password: ''
+      password: '',
+      code: 0,
     });
     const [isLoading, setIsLoading] = useState(false);
     
@@ -24,7 +26,7 @@ export default function SignUpPage() {
       e.preventDefault();
       setIsLoading(true);
       console.log(signUpData);
-      const promise = axios.post(process.env.REACT_APP_SIGNUP_URL , signUpData);
+      const promise = axios.post(`${process.env.REACT_APP_BASE_URL}/signup`, signUpData);
       promise.then(() => {
         setIsLoading(false);
         navigate('/');
@@ -37,31 +39,84 @@ export default function SignUpPage() {
     }
 
     function OnChange(e) {
-      setSignUpData({ ...signUpData, [e.target.name]: e.target.value});
+      const { name, value, type, checked } = e.target;
+      if (type === 'checkbox') {
+        if (name === 'isAdm') {
+          if(!signUpData.isAdm){
+            setSignUpData((prevData) => ({
+              ...prevData,
+              isAdm: checked,
+              isEmployee: !checked,
+            }));
+          }
+        } else if (name === 'isEmployee') {
+          if(signUpData.isAdm){
+            setSignUpData((prevData) => ({
+              ...prevData,
+              isAdm: !checked,
+              isEmployee: checked,
+            }));
+          }
+        }
+      } else {
+        setSignUpData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      }
     }
+    
 
     return (
       <AuthenticationPageStyle>
 
         <Form onSubmit={SignUpRequest}>
+          <input
+              type="checkbox"
+              checked={signUpData.isAdm}
+              name="isAdm"
+              onChange={OnChange}
+              disabled={isLoading}
+            />
+          <h1>Administrator</h1>
+            <input
+              type="checkbox"
+              checked={!signUpData.isAdm}
+              name="isEmployee"
+              onChange={OnChange}
+              disabled={isLoading}
+            />
+          <h1>Employee</h1>
           <input 
-            type='login' placeholder='login'
+            type='login' placeholder='Login'
             value={signUpData.login} name='login'
             onChange={OnChange} required
             disabled={isLoading}
           />
           <input 
-            type='password' placeholder='password'
+            type='password' placeholder='Password'
             value={signUpData.password} name='password'
             onChange={OnChange} required
             disabled={isLoading}
           />
           <input 
-            type='text' placeholder='name'
+            type='text' placeholder='Name'
             value={signUpData.name} name='name'
             onChange={OnChange} required
             disabled={isLoading}
           />
+          {signUpData.isAdm ? false : (
+            <input
+              type="text"
+              placeholder="Restaurant Code"
+              value={signUpData.code}
+              name="code"
+              onChange={OnChange}
+              required={!signUpData.isAdm}
+              disabled={isLoading}
+            />
+          )}
+
           <button type='submit' disabled={isLoading}>
                 Sign-Up
           </button>

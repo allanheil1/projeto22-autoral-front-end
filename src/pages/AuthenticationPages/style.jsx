@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { patternTheme as theme } from '../../globalstyle/pattern';
 
 export const AuthenticationPageStyle = styled.div`
   width: 100%;
@@ -7,26 +8,30 @@ export const AuthenticationPageStyle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #020e27;
+  background-color: ${theme.authBGColor};
+
+  h1{
+    color: ${theme.authFontColor};
+  }
+
   img{
     height: 200px;
     margin-bottom: -40px;
   }
 
   input{
-    font-family: 'Roboto', sans-serif;
     height: 45px;
     width: 303px;
     margin-bottom: 6px;
-    background: #020e27;
+    background: ${theme.authBGColor};
     border-color: #FFFFFF;
     border: 1px solid #D5D5D5;
     border-radius: 5px;
     font-size: 20px;
-    color: #FFFFFF;
+    color: ${theme.authFontColor};
     padding-left: 10px;
     ::placeholder{
-      color: #DBDBDB;
+      color: #7C7C7C;
       font-size: 20px;
       text-decoration: none;
     }
@@ -43,7 +48,7 @@ export const AuthenticationPageStyle = styled.div`
     border: none;
     border-radius: 5px;
     font-size: 20px;
-    color: #020e27;
+    color: ${theme.authBGColor};
     text-align: center;
     margin-bottom: 25px;
     background-color: #FFFFFF;
@@ -55,7 +60,7 @@ export const AuthenticationPageStyle = styled.div`
 
 export const Message = styled.div`
   font-family: 'Roboto', sans-serif;
-  color: #FFFFFF;
+  color:${theme.authFontColor};
   font-size: 15px;
   text-decoration: underline;
 `
