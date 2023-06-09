@@ -26,7 +26,7 @@ export default function SignUpPage() {
       e.preventDefault();
       setIsLoading(true);
       console.log(signUpData);
-      const promise = axios.post(`${process.env.REACT_APP_BASE_URL}/signup`, signUpData);
+      const promise = axios.post(`${import.meta.env.VITE_API_URL}/signup`, signUpData);
       promise.then(() => {
         setIsLoading(false);
         navigate('/');

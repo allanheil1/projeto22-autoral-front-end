@@ -22,7 +22,7 @@ export default function SignInPage() {
 	function SignInRequest(e) {
 		e.preventDefault();
 		setIsLoading(true);
-		const promise = axios.post(`${process.env.REACT_APP_BASE_URL}/signin`, signInData);
+		const promise = axios.post(`${import.meta.env.VITE_API_URL}/signin`, signInData);
 		promise.then((res) => {
 			setIsLoading(false);
 			setToken(res.data.token);
