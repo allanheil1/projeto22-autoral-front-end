@@ -2,8 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext.jsx';
-
-import { AuthenticationPageStyle, Message, Form } from './style'
+import logo from '../../assets/logo.svg'
+import { AuthenticationPageStyle, Message, Form, LogoWrapper, CheckBoxWrapper, CheckBox } from './style'
 
 export default function SignUpPage() {
     //const { setVisibleHeader } = useContext(UserContext);
@@ -13,19 +13,19 @@ export default function SignUpPage() {
       login: '',
       name: '',
       password: '',
-      code: 0,
+      code: undefined,
     });
     const [isLoading, setIsLoading] = useState(false);
     
-    useEffect(()=>{
-        //setVisibleHeader(false);
-        // eslint-disable-next-line
-    },[]);
+    // useEffect(()=>{
+    //     //setVisibleHeader(false);
+    //     // eslint-disable-next-line
+    // },[]);
 
     function SignUpRequest(e){
       e.preventDefault();
       setIsLoading(true);
-      console.log(signUpData);
+      //console.log(signUpData);
       const promise = axios.post(`${import.meta.env.VITE_API_URL}/signup`, signUpData);
       promise.then(() => {
         setIsLoading(false);
@@ -64,27 +64,13 @@ export default function SignUpPage() {
       }
     }
     
-
     return (
       <AuthenticationPageStyle>
-
+        <LogoWrapper>
+          <img src={logo}/>
+          <h1>Table Tracker</h1>
+        </LogoWrapper>
         <Form onSubmit={SignUpRequest}>
-          <input
-              type="checkbox"
-              checked={signUpData.isAdm}
-              name="isAdm"
-              onChange={OnChange}
-              disabled={isLoading}
-            />
-          <h1>Administrator</h1>
-            <input
-              type="checkbox"
-              checked={!signUpData.isAdm}
-              name="isEmployee"
-              onChange={OnChange}
-              disabled={isLoading}
-            />
-          <h1>Employee</h1>
           <input 
             type='login' placeholder='Login'
             value={signUpData.login} name='login'
@@ -103,6 +89,29 @@ export default function SignUpPage() {
             onChange={OnChange} required
             disabled={isLoading}
           />
+          <CheckBoxWrapper>
+            <CheckBox>
+              <input
+                  type="checkbox"
+                  checked={signUpData.isAdm}
+                  name="isAdm"
+                  onChange={OnChange}
+                  disabled={isLoading}
+                />
+              <h1>Administrator</h1>
+            </CheckBox>
+            <CheckBox>
+              <input
+                  type="checkbox"
+                  checked={!signUpData.isAdm}
+                  name="isEmployee"
+                  onChange={OnChange}
+                  disabled={isLoading}
+                />
+              <h1>Employee</h1>
+            </CheckBox>
+          </CheckBoxWrapper>
+
           {signUpData.isAdm ? false : (
             <input
               type="text"

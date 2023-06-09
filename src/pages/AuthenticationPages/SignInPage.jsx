@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-import { AuthenticationPageStyle, Message, Form } from "./style";
+import logo from '../../assets/logo.svg';
+import { AuthenticationPageStyle, Message, Form, LogoWrapper } from "./style";
 import { UserContext } from "../../contexts/UserContext.jsx";
 
 export default function SignInPage() {
@@ -42,11 +43,14 @@ export default function SignInPage() {
 
 	return (
 		<AuthenticationPageStyle>
-
+			<LogoWrapper>
+				<img src={logo}/>
+				<h1>Table Tracker</h1>
+			</LogoWrapper>
 			<Form onSubmit={SignInRequest}>
 				<input
 					type="login"
-					placeholder="login"
+					placeholder="Login"
 					value={signInData.login}
 					name="login"
 					onChange={OnChange}
@@ -55,7 +59,7 @@ export default function SignInPage() {
 				/>
 				<input
 					type="password"
-					placeholder="password"
+					placeholder="Password"
 					value={signInData.password}
 					name="password"
 					onChange={OnChange}
