@@ -8,7 +8,7 @@ import { UserContext } from "../../contexts/UserContext.jsx";
 
 export default function SignInPage() {
 	const navigate = useNavigate();
-	const { setToken } = useContext(UserContext);
+	const { setToken, setUser } = useContext(UserContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [signInData, setSignInData] = useState({
 		login: '',
@@ -26,7 +26,8 @@ export default function SignInPage() {
 		const promise = axios.post(`${import.meta.env.VITE_API_URL}/signin`, signInData);
 		promise.then((res) => {
 			setIsLoading(false);
-			setToken(res.data.token);
+			setToken(res.data.response.usertoken);
+			setUser(res.data.response.user);
 
 			navigate("/home");
 		});
