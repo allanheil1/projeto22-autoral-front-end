@@ -6,12 +6,17 @@ import * as s from './style.jsx';
 
 export default function HomePage() {
 
-    const { token, user } = useContext(UserContext);
+    const { token, setVisibleHeader, checkLogin } = useContext(UserContext);
+
+    useEffect(() => {
+        //checkLogin();
+        setVisibleHeader(true);
+    }, []);
 
     return(
         <s.HomePageStyle>
+            <h1>home</h1>
             <h1>{token}</h1>
-            <h2>{user.name}</h2>
         </s.HomePageStyle>
     );
 }
